@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="logic_seminar_college_lists" model="ir.ui.view">
+        <field name="name">College Lists</field>
+        <field name="model">college.list</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="College">
+                <sheet>
+                    <div class="oe_title pr-0">
+                        <h1 class="d-flex flex-row justify-content-between">
+                            <field name="college_name" class="o_task_name text-truncate" placeholder="College Name..."
+                                   default_focus="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="type" style="background:#fac17f;"/>
+                            <field name="first_year" invisible = "type != 'college'"/>
+                            <field name="second_year" invisible = "type != 'college'"/>
+                            <field name="third_year" invisible = "type != 'college'"/>
+                            <field name="school_type" invisible = "type != 'college'"/>
+                            <field name="district" style="background:#fac17f;"/>
+                            <field name="place" style="background:#fac17f;"/>
+                            <field name="institute_number" placeholder="Institute Number" widget="phone" style="background:#fac17f;"/>
+                        </group>
+                        <group string="Contact Person Details">
+                            <field name="designation"/>
+                            <field name="contact_person_name"/>
+                            <field name="contact_number" style="background:#fac17f;"/>
+                        </group>
+                    </group>
+                </sheet>
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="logic_college_lists_tree" model="ir.ui.view">
+        <field name="name">Colleges</field>
+        <field name="model">college.list</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="college_name"/>
+                <field name="contact_number" widget="phone"/>
+                <field name="type"/>
+            </tree>
+
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="logic_seminar_colleges_action">
+        <field name="name">Institutes</field>
+        <field name="res_model">college.list</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <menuitem name="Institutes" id="menu_lists_colleges_view"
+              action="logic_seminar_colleges_action"
+              parent="seminar_main_menu"
+              sequence="2"/>
+</odoo>

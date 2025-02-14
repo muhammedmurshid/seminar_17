@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.rule" id="seminar_executive_rules">
+        <field name="name">Seminar Executive Rule</field>
+        <field name="model_id" ref="model_seminar_leads"/>
+        <field name="groups"
+               eval="[(4, ref('seminar_17.seminar_marketing_executive'))]"/>
+        <field name="domain_force">['|','|',('attended_by','=',user.id),('booked_by','=',user.id),('create_uid','=',user.id)]</field>
+    </record>
+
+    <record model="ir.rule" id="seminar_executive_head_rules">
+        <field name="name">Seminar Executive Head Rule</field>
+        <field name="model_id" ref="model_seminar_leads"/>
+        <field name="groups"
+               eval="[(4, ref('seminar_17.seminar_marketing_executive_head'))]"/>
+        <field name="domain_force">['|','|',('create_uid.employee_id.parent_id.user_id','=',user.id),('booked_by.employee_id.parent_id.user_id','=',user.id),('create_uid.employee_id.parent_id.user_id','=',user.id)]</field>
+    </record>
+
+</odoo>
