@@ -11,14 +11,16 @@ class SeminarLeads(models.Model):
 
     lead_source_id = fields.Many2one('leads.sources', string="Lead Source", required=True)
     date = fields.Date(string="Date")
-    academic_year = fields.Selection(
-        [('2020-2021', '2020-2021'), ('2022-2023', '2022-2023'), ('2024-2025', '2024-2025'),
-         ('2025-2026', '2025-2026'), ('2026-2027', '2026-2027'), ('nil', 'Nil')], string='Academic Year', required=1)
-    stream = fields.Char(string="Stream / Subject")
-    institute_name = fields.Many2one('college.list', string="College/School")
+    academic_year = fields.Selection([('2023', '2023-24'), ('2024', '2024-25'), ('2025', '2025-26')], string='Academic Year',)
+
+    # academic_year = fields.Selection(
+    #     [('2020-2021', '2020-2021'), ('2022-2023', '2022-2023'), ('2024-2025', '2024-2025'),
+    #      ('2025-2026', '2025-2026'), ('2026-2027', '2026-2027'), ('nil', 'Nil')], string='Academic Year', required=1)
+    stream = fields.Char(string="Stream")
+    institute_name = fields.Many2one('college.list', string="Institute Name")
     lead_source_name = fields.Char(related="lead_source_id.name")
-    booked_by = fields.Many2one('res.users', string="Seminar Booked By")
-    attended_by = fields.Many2one('res.users', string="Seminar Conducted By")
+    booked_by = fields.Many2one('res.users', string="Booked By")
+    attended_by = fields.Many2one('res.users', string="Attended By")
     district = fields.Selection([('wayanad', 'Wayanad'), ('ernakulam', 'Ernakulam'), ('kollam', 'Kollam'),
                                  ('thiruvananthapuram', 'Thiruvananthapuram'), ('kottayam', 'Kottayam'),
                                  ('kozhikode', 'Kozhikode'), ('palakkad', 'Palakkad'), ('kannur', 'Kannur'),
@@ -26,7 +28,7 @@ class SeminarLeads(models.Model):
                                  ('thrissur', 'Thrissur'), ('idukki', 'Idukki'), ('pathanamthitta', 'Pathanamthitta'),
                                  ('abroad', 'Abroad'), ('other', 'Other'), ('nil', 'Nil')],
                                 string='District')
-    students_ids = fields.One2many('student.list', 'seminar_id', string="Student List")
+    students_ids = fields.One2many('student.list', 'seminar_id', string="Seminar Leads")
     seminar_duplicate_ids = fields.One2many('duplicate.record.seminar', 'seminar_duplicate_id',
                                             string='Seminar Duplicates')
     incentive = fields.Float(string="Incentive")
