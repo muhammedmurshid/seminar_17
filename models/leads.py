@@ -14,8 +14,7 @@ class SeminarLeads(models.Model):
     academic_year = fields.Selection(
         [('2020-2021', '2020-2021'), ('2022-2023', '2022-2023'), ('2024-2025', '2024-2025'),
          ('2025-2026', '2025-2026'), ('2026-2027', '2026-2027'), ('nil', 'Nil')], string='Academic Year', required=1)
-    title = fields.Char(string="Title")
-    stream = fields.Char(string="Stream")
+    stream = fields.Char(string="Stream / Subject")
     institute_name = fields.Many2one('college.list', string="College/School")
     lead_source_name = fields.Char(related="lead_source_id.name")
     booked_by = fields.Many2one('res.users', string="Seminar Booked By")
