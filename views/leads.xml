@@ -46,6 +46,7 @@
                                    style="background-color:#fae7e3;"/>
                             <field name="attended_by" invisible="lead_source_name != 'Seminar'"
                                    style="background-color:#fae7e3;"/>
+                            <field name="incentive" groups="base.group_no_one"/>
 
                         </group>
                     </group>

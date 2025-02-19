@@ -29,6 +29,7 @@ class SeminarLeads(models.Model):
     students_ids = fields.One2many('student.list', 'seminar_id', string="Student List")
     seminar_duplicate_ids = fields.One2many('duplicate.record.seminar', 'seminar_duplicate_id',
                                             string='Seminar Duplicates')
+    incentive = fields.Float(string="Incentive")
     state = fields.Selection([
         ('draft', 'Draft'), ('filtered', 'Datas Filtered'), ('done', 'Done'), ('leads_assigned', 'Leads Assigned'),
     ], string='Status', default='draft', tracking=True)
