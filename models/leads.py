@@ -13,7 +13,7 @@ class SeminarLeads(models.Model):
     lead_source_id = fields.Many2one('leads.sources', string="Lead Source", required=True)
     date = fields.Date(string="Date", default=fields.Date.context_today)
     # academic_year = fields.Selection([('2023', '2023-24'), ('2024', '2024-25'), ('2025', '2025-26')], string='Academic Year',)
-
+    reference_no = fields.Char(string='Leads Number', required=True,)
     academic_year = fields.Selection(
         [('2020-2021', '2020-2021'), ('2022-2023', '2022-2023'), ('2024-2025', '2024-2025'),
          ('2025-2026', '2025-2026'), ('2026-2027', '2026-2027'), ('nil', 'Nil')], string='Academic Year', required=1)
