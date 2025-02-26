@@ -13,4 +13,5 @@ access_seminar_leads_institutes_executive_head,access_seminar_leads_institutes,m
 access_seminar_student_list_executive_head,access_seminar_student_list,model_student_list,seminar_17.seminar_marketing_executive_head,1,1,1,1
 
 access_seminar_student_duplicates_list,access_seminar_student_duplicates_list,model_duplicate_record_seminar,,1,1,1,1
+seminar_bulk_assigning,access_details,model_bulk_seminar_assign,,1,1,1,1
 

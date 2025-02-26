@@ -11,7 +11,7 @@ class SeminarLeads(models.Model):
 
 
     lead_source_id = fields.Many2one('leads.sources', string="Lead Source", required=True)
-    date = fields.Date(string="Date")
+    date = fields.Date(string="Date", default=fields.Date.context_today)
     # academic_year = fields.Selection([('2023', '2023-24'), ('2024', '2024-25'), ('2025', '2025-26')], string='Academic Year',)
 
     academic_year = fields.Selection(
@@ -32,6 +32,9 @@ class SeminarLeads(models.Model):
     students_ids = fields.One2many('student.list', 'seminar_id', string="Seminar Leads")
     seminar_duplicate_ids = fields.One2many('duplicate.record.seminar', 'seminar_duplicate_id',
                                             string='Seminar Duplicates')
+    bulk_lead_assign = fields.Boolean(string='Bulk Lead Assign')
+    assigned_user = fields.Many2one('res.users', string='Assigned User')
+
     incentive = fields.Float(string="Incentive")
     state = fields.Selection([
         ('draft', 'Draft'), ('filtered', 'Datas Filtered'), ('done', 'Done'), ('leads_assigned', 'Leads Assigned'),
@@ -84,6 +87,16 @@ class SeminarLeads(models.Model):
             if duplicate.is_it_duplicate:
                 duplicate.unlink()
         self.state = 'filtered'
+
+    def action_bulk_lead_assign(self):
+        print('action_bulk_lead_assign')
+        return {'name': _('Bulk Assign'),
+                'type': 'ir.actions.act_window',
+                'res_model': 'bulk.seminar.assign',
+                'view_mode': 'form',
+                'target': 'new',
+                'context': {'default_seminar_id': self.id}
+                }
 
     def get_current_leads(self):
         self.ensure_one()
