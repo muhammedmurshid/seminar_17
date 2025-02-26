@@ -15,7 +15,7 @@
                     <button name="act_return_to_draft" type="object" invisible="state in ['done','leads_assigned','draft']"
                             string="Return to Draft"/>
                     <button name="action_bulk_lead_assign" type="object" string="Bulk Lead Assign"
-                            invisible="state in ['draft','filtered']"
+                            invisible="state in ['draft','filtered','leads_assigned']"
                             groups="custom_leads.group_lead_team_lead"/>
                 </header>
                 <sheet>
