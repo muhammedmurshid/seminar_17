@@ -164,3 +164,5 @@ class DuplicateRecord(models.TransientModel):
 
 class TestPAyment(models.Model):
     _name = 'payment.request'
+
+    source_type = fields.Selection(selection=[], string="Source Type")
