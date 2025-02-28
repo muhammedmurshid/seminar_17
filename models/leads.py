@@ -161,3 +161,6 @@ class DuplicateRecord(models.TransientModel):
     parent_number = fields.Char(string='Parent Number')
     preferred_course = fields.Char(string='Preferred Course')
     selected_lead = fields.Boolean(string='Selected Lead')
+
+class TestPAyment(models.Model):
+    _name = 'payment.request'
