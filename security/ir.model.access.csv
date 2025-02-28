@@ -15,3 +15,17 @@ access_seminar_student_list_executive_head,access_seminar_student_list,model_stu
 access_seminar_student_duplicates_list,access_seminar_student_duplicates_list,model_duplicate_record_seminar,,1,1,1,1
 seminar_bulk_assigning,access_details,model_bulk_seminar_assign,,1,1,1,1
 
+access_college_exp_exc,access_details,model_seminar_expenses,seminar_marketing_executive,1,1,1,1
+access_college_exp_admin,access_college_exp_admin,model_seminar_expenses,seminar_admin,1,1,1,1
+access_college_exp_exc_head,access_college_exp_exc_head,model_seminar_expenses,seminar_marketing_executive_head,1,1,1,1
+access_college_exp_acc,access_college_exp_acc,model_seminar_expenses,seminar_accounts,1,1,1,1
+
+access_college_seminar_list,access_college_seminar_list,model_expenses_tree_seminar,,1,1,1,1
+
+access_seminar_traveling,access_details,model_seminar_traveling_rate,seminar_marketing_executive,0,1,1,1
+access_seminar_acc_traveling,access_details,model_seminar_traveling_rate,seminar_accounts,1,1,1,1
+access_seminar_admin_traveling,access_details,model_seminar_traveling_rate,seminar_admin,1,1,1,1
+access_seminar_admin_traveling_head,access_seminar_admin_traveling_head,model_seminar_traveling_rate,seminar_marketing_executive_head,1,1,1,1
+
+
+

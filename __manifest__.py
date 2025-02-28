@@ -14,7 +14,9 @@
         'security/rules.xml',
         'views/leads.xml',
         'views/institute.xml',
-        'views/bulk_data_assign.xml'
+        'views/bulk_data_assign.xml',
+        'views/expenses.xml',
+        'views/km_traveling_rate.xml'
         # 'views/data_assigning.xml'
     ],
     # data files containing optionally loaded demonstration data

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="seminar_expenses_form_view" model="ir.ui.view">
+        <field name="name">Expenses</field>
+        <field name="model">seminar.expenses</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="Expenses">
+                <header>
+                    <field name="state" widget="statusbar"/>
+                    <button name="action_submit" type="object" invisible="state != 'draft'" string="Submit" class="oe_highlight"/>
+                    <button name="action_head_approval" type="object" invisible="state != 'head_approval'" string="Approve"
+                            class="oe_highlight" groups="seminar.seminar_marketing_executive_head,seminar.seminar_admin"/>
+                    <button name="action_hr_approval" class="oe_highlight" type="object" invisible="state != 'hr_approval'"
+                            string="Approve" groups="seminar.seminar_admin"/>
+                    <button name="action_rejected" type="object" invisible="state != 'hr_approval'" string="Reject"
+                            groups="seminar.seminar_admin"/>
+                    <button name="action_rejected" type="object" invisible="state != 'head_approval'" string="Reject"
+                            groups="seminar.seminar_marketing_executive_head"/>
+                    <button name="action_re_calculate" type="object" invisible="state != 'done'" string="Recalculate"
+                            style="background-color:#eb9534"
+                            groups="seminar.seminar_accounts"/>
+
+                </header>
+                <sheet>
+                    <widget name="web_ribbon" text="PAID" bg_color="bg-success"
+                            invisible="state != 'paid'"/>
+
+                    <group>
+                        <group>
+                            <field name="purpose"/>
+                            <field name="currency_id" invisible="1"/>
+                            <!--                            <field name="payment_expected_date"/>-->
+                            <field name="payment_date"/>
+                        </group>
+                        <group>
+                            <field name="seminar_user"/>
+                            <field name="date" readonly="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Expenses List" name="goals">
+                            <field name="exp_ids">
+                                <tree string="Students List" editable="bottom">
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="date"/>
+                                    <field name="particulars"/>
+                                    <field name="type"/>
+                                    <field name="institute"/>
+                                    <field name="institute_number"/>
+                                    <field name="km_traveled"/>
+                                    <field name="km_amount" widget="monetary"/>
+
+                                    <!--                                    <field name="amount" widget="monetary"/>-->
+                                </tree>
+                            </field>
+                            <group>
+                                <group>
+                                    <field name="car_check" invisible="1"/>
+                                    <field name="bike_check" invisible="1"/>
+                                    <field name="bus_check" invisible="1"/>
+                                    <field name="train_check" invisible="1"/>
+
+                                    <field name="car_rate" invisible="car_check ==  False"
+                                           groups="seminar.seminar_accounts" widget="monetary"/>
+                                    <field name="bike_rate" invisible="bike_check == False"
+                                           groups="seminar.seminar_accounts" widget="monetary"/>
+                                    <field name="bus_rate" invisible="bus_check == False"
+                                           groups="seminar.seminar_accounts" widget="monetary"/>
+                                    <field name="train_rate" invisible="train_check == False"
+                                           groups="seminar.seminar_accounts" widget="monetary"/>
+
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Bank Details" name="details">
+                            <group>
+                                <group>
+                                    <field name="account_name"/>
+                                    <field name="account_no"/>
+                                    <field name="bank_name"/>
+                                    <field name="ifsc_code"/>
+
+                                    <field name="bank_branch"/>
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+                    <group class="oe_subtotal_footer oe_right">
+                        <field name="km_amount"
+                               widget='monetary'
+                               options="{'currency_field': 'currency_id'}"/>
+                        <!--                        <field name="km_amount_total" widget="monetary" options="{'currency_field': 'currency_id'}"/>-->
+                        <div class="oe_subtotal_footer_separator oe_inline">
+                            <label for="total_traveled_amount"/>
+                        </div>
+                        <field name="total_traveled_amount" nolabel="1" class="oe_subtotal_footer_separator"
+                               widget='monetary'
+                               options="{'currency_field': 'currency_id'}"/>
+                    </group>
+                </sheet>
+
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids"/>
+                    <field name="activity_ids"/>
+                    <field name="message_ids" options="{'post_refresh': 'recipients'}"/>
+                </div>
+            </form>
+        </field>
+    </record>
+    <record id="logic_leads_seminar_expenses_tree" model="ir.ui.view">
+        <field name="name">Expenses</field>
+        <field name="model">seminar.expenses</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="purpose"/>
+                <field name="seminar_user"/>
+                <field name="payment_expected_date"/>
+                <field name="state" widget="badge" decoration-success="state == 'paid'"
+                       decoration-info="state == 'done'" decoration-danger="state == 'rejected'"/>
+
+            </tree>
+
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="logic_seminar_expenses_action">
+        <field name="name">Expenses</field>
+        <field name="res_model">seminar.expenses</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem name="Payments" id="menu_lists_sem_exp_view_main"
+              parent="seminar_main_menu"
+              sequence="3"/>
+    <menuitem name="Expenses" id="menu_lists_sem_exp_view"
+              action="logic_seminar_expenses_action"
+              parent="menu_lists_sem_exp_view_main"
+              sequence="1"/>
+</odoo>

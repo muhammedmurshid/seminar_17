@@ -17,5 +17,9 @@
         <field name="name">Marketing Executive Head</field>
         <field name="category_id" ref="seminar_users_group"/>
     </record>
+    <record id="seminar_accounts" model="res.groups">
+        <field name="name">Accountant</field>
+        <field name="category_id" ref="seminar_users_group"/>
+    </record>
 
 </odoo>
