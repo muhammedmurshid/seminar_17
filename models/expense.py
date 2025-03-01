@@ -7,6 +7,7 @@ class SeminarExpenses(models.Model):
     _rec_name = 'purpose'
     _description = 'Seminar Expenses'
     _inherit = ['mail.thread', 'mail.activity.mixin']
+    _order = 'id desc'
 
     purpose = fields.Selection([('seminar', 'Seminar'), ('mou', 'MOU'), ('visit', 'Visit')], string='Purpose',
                                default='seminar')
@@ -121,9 +122,9 @@ class SeminarExpenses(models.Model):
         self.state = 'hr_approval'
 
     def action_hr_approval(self):
-        batches_feedback = self.env['mail.activity'].search([('res_id', '=', self.id), (
-            'activity_type_id', '=', self.env.ref('seminar.seminar_expense_activity').id)])
-        batches_feedback.action_feedback(feedback='Seminar Expense has been approved')
+        # batches_feedback = self.env['mail.activity'].search([('res_id', '=', self.id), (
+        #     'activity_type_id', '=', self.env.ref('seminar_17.seminar_expense_activity').id)])
+        # batches_feedback.action_feedback(feedback='Seminar Expense has been approved')
         self.env['payment.request'].sudo().create({
             'source_type': 'seminar',
             'source_user': self.create_uid.id,
