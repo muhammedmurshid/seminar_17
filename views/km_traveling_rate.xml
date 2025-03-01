@@ -43,6 +43,7 @@
               id="main_menu_traveling_rate"
               action="rate_of_seminar_rate_traveling"
               parent="menu_lists_sem_exp_view_main"
+              groups="seminar_17.seminar_admin"
               sequence="10"/>
 
 

@@ -10,16 +10,16 @@
                     <field name="state" widget="statusbar"/>
                     <button name="action_submit" type="object" invisible="state != 'draft'" string="Submit" class="oe_highlight"/>
                     <button name="action_head_approval" type="object" invisible="state != 'head_approval'" string="Approve"
-                            class="oe_highlight" groups="seminar.seminar_marketing_executive_head,seminar.seminar_admin"/>
+                            class="oe_highlight" groups="seminar_17.seminar_marketing_executive_head,seminar_17.seminar_admin"/>
                     <button name="action_hr_approval" class="oe_highlight" type="object" invisible="state != 'hr_approval'"
-                            string="Approve" groups="seminar.seminar_admin"/>
+                            string="Approve" groups="seminar_17.seminar_admin"/>
                     <button name="action_rejected" type="object" invisible="state != 'hr_approval'" string="Reject"
-                            groups="seminar.seminar_admin"/>
+                            groups="seminar_17.seminar_admin"/>
                     <button name="action_rejected" type="object" invisible="state != 'head_approval'" string="Reject"
-                            groups="seminar.seminar_marketing_executive_head"/>
+                            groups="seminar_17.seminar_marketing_executive_head"/>
                     <button name="action_re_calculate" type="object" invisible="state != 'done'" string="Recalculate"
                             style="background-color:#eb9534"
-                            groups="seminar.seminar_accounts"/>
+                            groups="seminar_17.seminar_accounts"/>
 
                 </header>
                 <sheet>
@@ -62,13 +62,13 @@
                                     <field name="train_check" invisible="1"/>
 
                                     <field name="car_rate" invisible="car_check ==  False"
-                                           groups="seminar.seminar_accounts" widget="monetary"/>
+                                           groups="seminar_17.seminar_accounts" widget="monetary"/>
                                     <field name="bike_rate" invisible="bike_check == False"
-                                           groups="seminar.seminar_accounts" widget="monetary"/>
+                                           groups="seminar_17.seminar_accounts" widget="monetary"/>
                                     <field name="bus_rate" invisible="bus_check == False"
-                                           groups="seminar.seminar_accounts" widget="monetary"/>
+                                           groups="seminar_17.seminar_accounts" widget="monetary"/>
                                     <field name="train_rate" invisible="train_check == False"
-                                           groups="seminar.seminar_accounts" widget="monetary"/>
+                                           groups="seminar_17.seminar_accounts" widget="monetary"/>
 
                                 </group>
                             </group>
