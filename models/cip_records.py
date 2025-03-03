@@ -49,7 +49,7 @@ class SeminarCipRecords(models.Model):
 
     def action_sent_to_approve(self):
         for i in self:
-            user = self.env.ref('seminar.seminar_admin').users
+            user = self.env.ref('seminar_17.seminar_admin').users
 
             for j in user:
                 print(j.name, 'admin')
@@ -78,7 +78,7 @@ class SeminarCipRecords(models.Model):
         })
         activity_id = self.env['mail.activity'].search(
             [('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
-                'activity_type_id', '=', self.env.ref('seminar.seminar_cip_payment_activity').id)])
+                'activity_type_id', '=', self.env.ref('seminar_17.seminar_cip_payment_activity').id)])
         activity_id.action_feedback(feedback=f'Cip payment request approved.')
 
         self.state = 'register_payment'
@@ -86,7 +86,7 @@ class SeminarCipRecords(models.Model):
     def action_reject(self):
         activity_id = self.env['mail.activity'].search(
             [('res_id', '=', self.id), ('user_id', '=', self.env.user.id), (
-                'activity_type_id', '=', self.env.ref('seminar.seminar_cip_payment_activity').id)])
+                'activity_type_id', '=', self.env.ref('seminar_17.seminar_cip_payment_activity').id)])
         activity_id.action_feedback(feedback=f'Cip payment request rejected.')
         self.state = 'rejected'
 
