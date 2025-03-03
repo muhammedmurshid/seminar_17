@@ -133,7 +133,7 @@
                 <field name="seminar_source" invisible="source_type != 'seminar'"
                     string="Seminar Source"/>
                 <field name="seminar_executive" invisible="source_type != 'seminar'"/>
-<!--                <field name="seminar_incentive_source" invisible="description != 'Seminar Incentive'"/>-->
+                <field name="seminar_incentive_source" invisible="description != 'Seminar Incentive'"/>
             </xpath>
         </field>
     </record>

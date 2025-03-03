@@ -13,10 +13,13 @@
         'security/ir.model.access.csv',
         'security/rules.xml',
         'views/leads.xml',
+        'data/activity.xml',
         'views/institute.xml',
         'views/bulk_data_assign.xml',
         'views/expenses.xml',
-        'views/km_traveling_rate.xml'
+        'views/km_traveling_rate.xml',
+        'views/incentive.xml',
+        'views/seminar_cip.xml'
         # 'views/data_assigning.xml'
     ],
     # data files containing optionally loaded demonstration data

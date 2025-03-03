@@ -3,3 +3,5 @@ from . import institute
 from . import bulk_aseminar_data_assign
 from . import expense
 from . import traveling_rate
+from . import incentive
+from . import cip_records

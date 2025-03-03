@@ -34,11 +34,19 @@ class SeminarLeads(models.Model):
                                             string='Seminar Duplicates')
     bulk_lead_assign = fields.Boolean(string='Bulk Lead Assign')
     assigned_user = fields.Many2one('res.users', string='Assigned User')
-
+    incentive_booked = fields.Boolean(string='Incentive Booked')
+    incentive_attended = fields.Boolean(string='Incentive Attended')
     incentive = fields.Float(string="Incentive")
     state = fields.Selection([
         ('draft', 'Draft'), ('filtered', 'Datas Filtered'), ('done', 'Done'), ('leads_assigned', 'Leads Assigned'),
     ], string='Status', default='draft', tracking=True)
+
+    @api.depends('students_ids')
+    def _compute_child_count(self):
+        for record in self:
+            record.child_count = len(record.students_ids)
+
+    child_count = fields.Integer(string='Lead Count', compute='_compute_child_count', store=True)
 
     def act_submit(self):
         for i in self.students_ids:
@@ -139,6 +147,14 @@ class StudentList(models.Model):
     last_call_remarks = fields.Char(string="Last Call Remarks")
     admission_by = fields.Char(string="Admission By")
     admission_date = fields.Date(string="Admission Date")
+
+class SeminarLeadIncentive(models.Model):
+    _name = 'seminar.lead.incentive'
+    _description = 'Incentive Amount'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
+    _rec_name = 'incentive_per_lead'
+
+    incentive_per_lead = fields.Float(string='Incentive per lead')
 
 class DuplicateRecord(models.TransientModel):
     _name = 'duplicate.record.seminar'

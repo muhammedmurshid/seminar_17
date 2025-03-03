@@ -28,4 +28,18 @@ access_seminar_admin_traveling,access_details,model_seminar_traveling_rate,semin
 access_seminar_admin_traveling_head,access_seminar_admin_traveling_head,model_seminar_traveling_rate,seminar_marketing_executive_head,1,1,1,1
 
 
+access_seminar_leads_incentive,access_details,model_seminar_lead_incentive_records,seminar_marketing_executive_head,1,1,1,1
+access_seminar_leads_incentive_hr,access_details,model_seminar_lead_incentive_records,seminar_admin,1,1,1,1
+access_seminar_leads_incentive_acc,access_details,model_seminar_lead_incentive_records,seminar_accounts,1,1,1,1
 
+leads_incentive_list_acc,access_details,model_incentive_leads_list,,1,1,1,1
+
+access_adm_inc,access_details,model_seminar_lead_incentive,seminar_accounts,1,1,1,1
+access_adm_incentive,access_details,model_seminar_lead_incentive,seminar_admin,1,1,1,1
+
+seminar_cip_marketing_head,access_details,model_seminar_cip_records,seminar_marketing_executive_head,1,1,1,1
+seminar_cip_hr,access_details,model_seminar_cip_records,seminar_admin,1,1,1,1
+seminar_cip_accounts,access_details,model_seminar_cip_records,seminar_accounts,1,1,1,1
+
+seminar_cip_lists,access_details,model_seminar_cip_list,,1,1,1,1
+seminar_cip_rate,access_details,model_cip_executive_rate,seminar_accounts,1,1,1,1

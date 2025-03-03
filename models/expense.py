@@ -199,7 +199,7 @@ class PaymentModel(models.Model):
     )
     seminar_source = fields.Many2one('seminar.expenses', string="SFC Source")
     seminar_executive = fields.Many2one('res.users', string="Seminar Executive")
-    # seminar_incentive_source = fields.Many2one('seminar.lead.incentive.records', string="Incentive Source")
+    seminar_incentive_source = fields.Many2one('seminar.lead.incentive.records', string="Incentive Source")
 
 
 class AccountPaymentInheritSeminar(models.Model):

@@ -51,6 +51,8 @@
                                    style="background-color:#fae7e3;" readonly="state != 'draft'"/>
                             <field name="incentive" groups="base.group_no_one"/>
                             <field name="bulk_lead_assign" groups="base.group_no_one"/>
+                            <field name="incentive_booked" invisible="1"/>
+                            <field name="incentive_attended" invisible="1"/>
 
                         </group>
                     </group>
@@ -78,6 +80,12 @@
                                     <field name="state" invisible="1"/>
                                 </tree>
                             </field>
+                            <div>
+                                <h5 align="right">
+                                    <label for="child_count"/>:
+                                    <field name="child_count"/>
+                                </h5>
+                            </div>
                         </page>
                         <page string="Duplicates" name="duplicates">
                             <field name="seminar_duplicate_ids">
@@ -122,9 +130,14 @@
                 <field name="date"/>
                 <field name="lead_source_id"/>
                 <field name="create_uid" string="Owner"/>
+                <field name="institute_name"/>
+                <field name="stream"/>
                 <field name="booked_by"/>
                 <field name="attended_by"/>
                 <field name="academic_year"/>
+                <field name="district"/>
+                <field name="child_count" widget="badge" string="Leads Count"/>
+                <field name="assigned_user"/>
                 <field name="state" widget="badge"/>
             </tree>
         </field>
