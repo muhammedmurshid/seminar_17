@@ -16,7 +16,10 @@ class SeminarCipRecords(models.Model):
 
     def _compute_display_name(self):
         for record in self:
-            record.display_name = record.seminar_user_id.name + " " + 'Cip Record'
+            if record.seminar_user_id:
+                record.display_name = record.seminar_user_id.name + " " + 'Cip Record'
+            else:
+                record.display_name = 'Cip Record'
 
     @api.depends('seminar_cip_ids.net_hour')
     def _amount_all(self):
@@ -52,6 +55,7 @@ class SeminarCipRecords(models.Model):
                 print(j.name, 'admin')
                 i.activity_schedule('seminar_17.seminar_cip_payment_activity', user_id=j.id,
                                     note=f' {self.marketing_head.name} has requested for Cip payment for {self.seminar_user_id.name}')
+
         self.state = 'hr_approval'
 
     def action_approve(self):
