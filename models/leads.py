@@ -9,13 +9,12 @@ class SeminarLeads(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'id desc'
 
-
-    lead_source_id = fields.Many2one('leads.sources', string="Lead Source", required=True)
+    lead_source_id = fields.Many2one('leads.sources', string="Lead Source", required=True, domain=[('name', 'in', ['Seminar','Webinar'])])
     date = fields.Date(string="Date", default=fields.Date.context_today)
     # academic_year = fields.Selection([('2023', '2023-24'), ('2024', '2024-25'), ('2025', '2025-26')], string='Academic Year',)
     reference_no = fields.Char(string='Leads Number', required=True,)
     academic_year = fields.Selection(
-        [('2020-2021', '2020-2021'), ('2022-2023', '2022-2023'), ('2024-2025', '2024-2025'),
+        [('2024-2025', '2024-2025'),
          ('2025-2026', '2025-2026'), ('2026-2027', '2026-2027'), ('nil', 'Nil')], string='Academic Year', required=1)
     stream = fields.Char(string="Stream")
     institute_name = fields.Many2one('college.list', string="College / School")
@@ -60,40 +59,63 @@ class SeminarLeads(models.Model):
                 'academic_year': self.academic_year,
                 'district': self.district,
 
-
             })
+
         self.state = 'done'
 
     def act_return_to_draft(self):
         self.state = 'draft'
 
+    # def action_add_to_duplicates(self):
+    #     leads_rec = self.env['leads.logic'].sudo().search([])
+    #
+    #     for duplicate in self.students_ids:
+    #         # leads_rec = self.env['leads.logic'].sudo().search([])
+    #         if duplicate.contact_number:
+    #             for j in leads_rec:
+    #                 last_10_digits = str(j.phone_number)[-10:]
+    #                 print(last_10_digits, 'num')
+    #                 # print(j.phone_number[-10:], 'lead')
+    #                 # Check if the last 10 digits of both numbers match
+    #                 if j.phone_number[-10:] == duplicate.contact_number[-10:]:
+    #                     print(duplicate, 'duplicate')
+    #                     duplicate.is_it_duplicate = True
+    #                     self.seminar_duplicate_ids = [(0, 0, {'student_name': duplicate.student_name,
+    #                                                           'contact_number': duplicate.contact_number,
+    #                                                           'district': self.district,
+    #                                                           'preferred_course': duplicate.preferred_course,
+    #                                                           'whatsapp_number': duplicate.whatsapp_number,
+    #                                                           'parent_number': duplicate.parent_number,
+    #                                                           'email_address': duplicate.email_address,
+    #                                                           'place': duplicate.place, })]
+    #
+    #                     # Uncomment the following line if you want to remove duplicates
+    #                     # duplicate.unlink()
+    #         if duplicate.is_it_duplicate:
+    #             duplicate.unlink()
+    #     self.state = 'filtered'
     def action_add_to_duplicates(self):
-        leads_rec = self.env['leads.logic'].sudo().search([])
+        leads_rec = {str(j.phone_number)[-10:] for j in self.env['leads.logic'].sudo().search([])}
 
+        duplicates_to_add = []
         for duplicate in self.students_ids:
-            # leads_rec = self.env['leads.logic'].sudo().search([])
-            if duplicate.contact_number:
-                for j in leads_rec:
-                    last_10_digits = str(j.phone_number)[-10:]
-                    print(last_10_digits, 'num')
-                    # print(j.phone_number[-10:], 'lead')
-                    # Check if the last 10 digits of both numbers match
-                    if j.phone_number[-10:] == duplicate.contact_number[-10:]:
-                        print(duplicate, 'duplicate')
-                        duplicate.is_it_duplicate = True
-                        self.seminar_duplicate_ids = [(0, 0, {'student_name': duplicate.student_name,
-                                                              'contact_number': duplicate.contact_number,
-                                                              'district': self.district,
-                                                              'preferred_course': duplicate.preferred_course,
-                                                              'whatsapp_number': duplicate.whatsapp_number,
-                                                              'parent_number': duplicate.parent_number,
-                                                              'email_address': duplicate.email_address,
-                                                              'place': duplicate.place, })]
+            if duplicate.contact_number and str(duplicate.contact_number)[-10:] in leads_rec:
+                duplicate.is_it_duplicate = True
+                duplicates_to_add.append((0, 0, {
+                    'student_name': duplicate.student_name,
+                    'contact_number': duplicate.contact_number,
+                    'district': self.district,
+                    'preferred_course': duplicate.preferred_course,
+                    'whatsapp_number': duplicate.whatsapp_number,
+                    'parent_number': duplicate.parent_number,
+                    'email_address': duplicate.email_address,
+                    'place': duplicate.place,
+                }))
 
-                        # Uncomment the following line if you want to remove duplicates
-                        # duplicate.unlink()
-            if duplicate.is_it_duplicate:
-                duplicate.unlink()
+        if duplicates_to_add:
+            self.seminar_duplicate_ids = duplicates_to_add
+
+        self.students_ids.filtered(lambda d: d.is_it_duplicate).unlink()
         self.state = 'filtered'
 
     def action_bulk_lead_assign(self):
@@ -148,6 +170,33 @@ class StudentList(models.Model):
     admission_by = fields.Char(string="Admission By")
     admission_date = fields.Date(string="Admission Date")
 
+    @api.onchange('contact_number')
+    def _onchange_duplicate_phone_number(self):
+        print('Checking for duplicate phone number...')
+
+        if not self.contact_number or self.contact_number == +91:
+            return
+
+        # Extract the last 10 digits
+        last_10_digits = self.contact_number[-10:]
+        print(f'Last 10 Digits: {last_10_digits}, Current Record ID: {self._origin.id}')
+        if self.contact_number != '+91':
+            print('yes')
+            # Search in `leads.logic` model for records with the same last 10 digits
+            duplicate = self.env['leads.logic'].sudo().search([
+                ('phone_number', 'like', '%' + last_10_digits),
+                ('id', '!=', self._origin.id)  # Ignore current record
+            ], limit=1)  # Optimized: Fetch only 1 duplicate if exists
+
+            if duplicate:
+                return {
+                    'warning': {
+                        'title': _("Duplicate Phone Number"),
+                        'message': _("The phone number %s already exists in the system in a lead.") % self.contact_number,
+                    }
+                }
+        else:
+            print('nop')
 class SeminarLeadIncentive(models.Model):
     _name = 'seminar.lead.incentive'
     _description = 'Incentive Amount'

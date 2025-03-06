@@ -26,5 +26,3 @@ class CollegeList(models.Model):
     designation = fields.Char(string='Designation')
     contact_person_name = fields.Char(string='Contact Person Name')
     institute_number = fields.Char(string='Institute Number')
-
-

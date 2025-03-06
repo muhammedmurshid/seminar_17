@@ -141,8 +141,6 @@ class IncentiveLeadsRecords(models.Model):
 
         })
 
-
-
     @api.depends('leads_list_ids.total_lead_count')
     def _lead_count_all(self):
         """

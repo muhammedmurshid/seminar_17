@@ -34,7 +34,7 @@
                     <!--                    </div>-->
                     <group>
                         <group readonly="state != 'draft'">
-                            <field name="lead_source_id" style="background-color:#fae7e3;" readonly="state != 'draft'"/>
+                            <field name="lead_source_id" style="background-color:#fae7e3;" readonly="state != 'draft'" options="{'no_create':True}"/>
                             <field name="lead_source_name" invisible="1" readonly="state != 'draft'"/>
                             <field name="date" style="background-color:#fae7e3;" readonly="state != 'draft'"/>
                             <field name="district" required="lead_source_name == 'Seminar'" style="background-color:#fae7e3;" readonly="state != 'draft'"/>
