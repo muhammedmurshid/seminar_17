@@ -43,3 +43,6 @@ seminar_cip_accounts,access_details,model_seminar_cip_records,seminar_accounts,1
 
 seminar_cip_lists,access_details,model_seminar_cip_list,,1,1,1,1
 seminar_cip_rate,access_details,model_cip_executive_rate,seminar_accounts,1,1,1,1
+
+access_seminar_leads_exc,access_seminar_leads_exc,custom_leads.model_leads_logic,seminar_marketing_executive,1,1,1,0
+access_seminar_leads_exc_head,access_seminar_leads_exc_head,custom_leads.model_leads_logic,seminar_marketing_executive_head,1,1,1,0
