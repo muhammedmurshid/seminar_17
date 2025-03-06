@@ -12,7 +12,8 @@
                             string="Sent to Lead"/>
                     <button name="action_add_to_duplicates" type="object" string="Verify and Filter"
                             style="background-color: #ff6d4d" invisible="state != 'draft'"/>
-                    <button name="act_return_to_draft" type="object" invisible="state in ['done','leads_assigned','draft']"
+                    <button name="act_return_to_draft" type="object"
+                            invisible="state in ['done','leads_assigned','draft']"
                             string="Return to Draft"/>
                     <button name="action_bulk_lead_assign" type="object" string="Bulk Lead Assign"
                             invisible="state in ['draft','filtered','leads_assigned']"
@@ -34,16 +35,18 @@
                     <!--                    </div>-->
                     <group>
                         <group readonly="state != 'draft'">
-                            <field name="lead_source_id" style="background-color:#fae7e3;" readonly="state != 'draft'" options="{'no_create':True}"/>
+                            <field name="lead_source_id" style="background-color:#fae7e3;" readonly="state != 'draft'"
+                                   options="{'no_create':True}"/>
                             <field name="lead_source_name" invisible="1" readonly="state != 'draft'"/>
                             <field name="date" style="background-color:#fae7e3;" readonly="state != 'draft'"/>
-                            <field name="district" required="lead_source_name == 'Seminar'" style="background-color:#fae7e3;" readonly="state != 'draft'"/>
+                            <field name="district" required="lead_source_name == 'Seminar'"
+                                   style="background-color:#fae7e3;" readonly="state != 'draft'"/>
                             <field name="academic_year" style="background-color:#fae7e3;" readonly="state != 'draft'"/>
                         </group>
                         <group>
                             <field name="institute_name" style="background-color:#fae7e3;"
                                    invisible="lead_source_name != 'Seminar'" readonly="state != 'draft'"/>
-<!--                            <field name="title"/>-->
+                            <!--                            <field name="title"/>-->
                             <field name="stream" readonly="state != 'draft'"/>
                             <field name="booked_by" invisible="lead_source_name != 'Seminar'"
                                    style="background-color:#fae7e3;" readonly="state != 'draft'"/>
@@ -138,7 +141,9 @@
                 <field name="district"/>
                 <field name="child_count" widget="badge" string="Leads Count"/>
                 <field name="assigned_user"/>
-                <field name="state" widget="badge"/>
+                <field name="state" widget="badge" decoration-warning="state == 'filtered'"
+                       decoration-info="state == 'draft'" decoration-primary="state == 'leads_assigned'"
+                       decoration-success="state == 'done'"/>
             </tree>
         </field>
     </record>
