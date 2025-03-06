@@ -35,10 +35,16 @@ class SeminarLeads(models.Model):
     assigned_user = fields.Many2one('res.users', string='Assigned User')
     incentive_booked = fields.Boolean(string='Incentive Booked')
     incentive_attended = fields.Boolean(string='Incentive Attended')
-    incentive = fields.Float(string="Incentive")
+    incentive = fields.Float(string="Incentive", compute="_compute_incentive_amount", store=1)
     state = fields.Selection([
         ('draft', 'Draft'), ('filtered', 'Datas Filtered'), ('done', 'Done'), ('leads_assigned', 'Leads Assigned'),
     ], string='Status', default='draft', tracking=True)
+
+    @api.depends('child_count')
+    def _compute_incentive_amount(self):
+        amount = self.env['seminar.lead.incentive'].sudo().search([], order='id desc', limit=1)
+        for rec in self:
+            rec.incentive = rec.child_count * amount.incentive_per_lead
 
     @api.depends('students_ids')
     def _compute_child_count(self):

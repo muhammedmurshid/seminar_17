@@ -52,7 +52,7 @@
                                    style="background-color:#fae7e3;" readonly="state != 'draft'"/>
                             <field name="attended_by" invisible="lead_source_name != 'Seminar'"
                                    style="background-color:#fae7e3;" readonly="state != 'draft'"/>
-                            <field name="incentive" groups="base.group_no_one"/>
+
                             <field name="bulk_lead_assign" groups="base.group_no_one"/>
                             <field name="incentive_booked" invisible="1"/>
                             <field name="incentive_attended" invisible="1"/>
@@ -86,7 +86,9 @@
                             <div>
                                 <h5 align="right">
                                     <label for="child_count"/>:
-                                    <field name="child_count"/>
+                                    <field name="child_count"/><br/>
+                                    <label for="incentive" groups="base.group_no_one"/>:
+                                    <field name="incentive" groups="base.group_no_one"/>
                                 </h5>
                             </div>
                         </page>
