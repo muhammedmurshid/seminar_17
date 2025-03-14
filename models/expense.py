@@ -125,7 +125,7 @@ class SeminarExpenses(models.Model):
         # batches_feedback = self.env['mail.activity'].search([('res_id', '=', self.id), (
         #     'activity_type_id', '=', self.env.ref('seminar_17.seminar_expense_activity').id)])
         # batches_feedback.action_feedback(feedback='Seminar Expense has been approved')
-        self.env['payment.request'].sudo().create({
+        self.env['payment.request'].with_user(self.seminar_user).sudo().create({
             'source_type': 'seminar',
             'source_user': self.create_uid.id,
             'amount': self.total_traveled_amount,
@@ -136,9 +136,11 @@ class SeminarExpenses(models.Model):
             'ifsc_code': self.ifsc_code,
             'bank_name': self.bank_name,
             'bank_branch': self.bank_branch,
-            'seminar_executive': self.seminar_user.id
+            'seminar_executive': self.seminar_user.id,
+            'create_uid': self.seminar_user.id
 
         })
+
         self.state = 'done'
 
     def action_rejected(self):
