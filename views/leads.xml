@@ -61,7 +61,7 @@
                     </group>
                     <notebook>
                         <page string="Students List" name="students">
-                            <field name="students_ids" readonly="state != 'draft'">
+                            <field name="students_ids" readonly="state not in ['draft','filtered']">
                                 <tree string="Students List" editable="bottom">
                                     <field name="student_name" style="background:#fac17f;"/>
 
@@ -72,12 +72,6 @@
                                     <field name="parent_number" widget="phone"/>
                                     <field name="email_address" widget="mail"/>
                                     <field name="place"/>
-                                    <!--                                    <field name="seminar_id" invisible="1"/>-->
-
-                                    <!--                                    <field name="last_call_by" invisible="state != 'done'"/>-->
-                                    <!--                                    <field name="date_of_call" invisible="state != 'done'"/>-->
-                                    <!--                                    <field name="last_call_remarks" invisible="state != 'done'"/>-->
-                                    <!--                                    <field name="admission_by" invisible="state != 'done'"/>-->
                                     <field name="admission_status" invisible="state != 'done'"/>
                                     <field name="admission_date" invisible="state != 'done'"/>
                                     <field name="state" invisible="1"/>
@@ -134,7 +128,7 @@
             <tree>
                 <field name="date"/>
                 <field name="lead_source_id"/>
-                <field name="create_uid" string="Owner"/>
+                <field name="create_uid" string="Owner" widget="many2one_avatar_user"/>
                 <field name="institute_name"/>
                 <field name="stream"/>
                 <field name="booked_by"/>
