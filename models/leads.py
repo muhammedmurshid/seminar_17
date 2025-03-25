@@ -152,6 +152,21 @@ class SeminarLeads(models.Model):
 
     leads_smart_count = fields.Integer(compute='compute_count')
 
+    def action_check_leads(self):
+        """Check if last 10 digits of student contact match leads.logic and update seminar_id"""
+        Lead = self.env['leads.logic']  # Access the leads model
+
+        for record in self:
+            student_contacts = [s.contact_number[-10:] for s in record.students_ids if s.contact_number]
+
+            matching_leads = Lead.search([
+                ('phone_number', '!=', False)
+            ])
+
+            for lead in matching_leads:
+                if lead.phone_number[-10:] in student_contacts:
+                    lead.seminar_id = record.id  # Link the lead to this seminar
+
 
 class StudentList(models.Model):
     _name = "student.list"
