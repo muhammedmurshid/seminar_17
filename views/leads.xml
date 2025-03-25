@@ -18,6 +18,9 @@
                     <button name="action_bulk_lead_assign" type="object" string="Bulk Lead Assign"
                             invisible="state in ['draft','filtered','leads_assigned']"
                             groups="custom_leads.group_lead_team_lead"/>
+                    <button name="action_bulk_lead_assign" type="object" string="Bulk Lead Re Assign"
+                            invisible="state not in ['leads_assigned']"
+                            groups="custom_leads.group_lead_team_lead"/>
                     <button name="action_check_leads" string="Link Leads" type="object" invisible="state in ['draft','filtered']"/>
                 </header>
                 <sheet>
