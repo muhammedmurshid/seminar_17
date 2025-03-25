@@ -69,9 +69,9 @@ class BulkSeminarDataAssign(models.TransientModel):
             if rec:
                 if rec.admission_status == False:
                     rec.update({
-                        'lead_owner': False,
                         'state': 'in_progress',
                         'tele_caller_id': self.user_id.id,
+                        'lead_owner': self.user_id.employee_id.id,
                         'lead_quality': 'new'
                     })
 
