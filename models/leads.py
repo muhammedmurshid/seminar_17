@@ -166,7 +166,7 @@ class SeminarLeads(models.Model):
             for lead in matching_leads:
                 if lead.phone_number[-10:] in student_contacts:
                     lead.seminar_id = record.id
-                    lead.college_name = record.institute_name.name# Link the lead to this seminar
+                    lead.college_name = record.institute_name.college_name# Link the lead to this seminar
 
 
 class StudentList(models.Model):
