@@ -9,7 +9,7 @@ class SeminarLeads(models.Model):
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _order = 'id desc'
 
-    lead_source_id = fields.Many2one('leads.sources', string="Lead Source", required=True, domain=[('name', 'in', ['Seminar','Webinar'])])
+    lead_source_id = fields.Many2one('leads.sources', string="Seminar / Webinar", required=True, domain=[('name', 'in', ['Seminar','Webinar'])])
     date = fields.Date(string="Date", default=fields.Date.context_today)
     # academic_year = fields.Selection([('2023', '2023-24'), ('2024', '2024-25'), ('2025', '2025-26')], string='Academic Year',)
     reference_no = fields.Char(string='Leads Number', required=True,)
