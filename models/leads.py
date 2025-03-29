@@ -166,7 +166,35 @@ class SeminarLeads(models.Model):
             for lead in matching_leads:
                 if lead.phone_number[-10:] in student_contacts:
                     lead.seminar_id = record.id
-                    lead.college_name = record.institute_name.college_name# Link the lead to this seminar
+                    lead.college_name = record.institute_name.college_name
+
+    def action_bulk_lead_assignment(self):
+        Lead = self.env['leads.logic']  # Access the leads model
+
+        selected_records = self
+        return {'name': _('Bulk Assign'),
+                'type': 'ir.actions.act_window',
+                'res_model': 'bulk.seminar.assign',
+                'view_mode': 'form',
+                'target': 'new',
+                'context': {'default_seminar_ids': selected_records.ids}
+                }
+    def action_bulk_lead_connection(self):
+        Lead = self.env['leads.logic']  # Access the leads model
+
+        selected_records = self  # This contains the selected records
+
+        for record in selected_records:
+            student_contacts = [
+                s.contact_number[-10:] for s in record.students_ids if s.contact_number
+            ]
+
+            matching_leads = Lead.search([('phone_number', '!=', False)])
+
+            for lead in matching_leads:
+                if lead.phone_number[-10:] in student_contacts:
+                    lead.seminar_id = record.id
+                    lead.college_name = record.institute_name.college_name
 
 
 class StudentList(models.Model):
@@ -248,8 +276,3 @@ class DuplicateRecord(models.TransientModel):
     parent_number = fields.Char(string='Parent Number')
     preferred_course = fields.Char(string='Preferred Course')
     selected_lead = fields.Boolean(string='Selected Lead')
-#
-# class TestPAyment(models.Model):
-#     _name = 'payment.request'
-#
-#     source_type = fields.Selection(selection=[], string="Source Type")

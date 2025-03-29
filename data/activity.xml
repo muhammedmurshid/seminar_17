@@ -26,4 +26,22 @@
         <field name="res_model">seminar.expenses</field>
         <field name="delay_count">30</field>
     </record>
+
+    <record id="model_seminar_bulk_lead_connection" model="ir.actions.server">
+        <field name="name">Link Leads</field>
+        <field name="model_id" ref="seminar_17.model_seminar_leads"/>
+        <field name="binding_model_id" ref="seminar_17.model_seminar_leads"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_bulk_lead_connection()</field>
+    </record>
+
+    <record id="model_seminar_bulk_lead_assignment" model="ir.actions.server">
+        <field name="name">Bulk Lead Assigning</field>
+        <field name="model_id" ref="seminar_17.model_seminar_leads"/>
+        <field name="binding_model_id" ref="seminar_17.model_seminar_leads"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">action = records.action_bulk_lead_assignment()</field>
+    </record>
 </odoo>

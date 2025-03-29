@@ -7,7 +7,8 @@
             <form string="Bulk Data Assign">
                 <group>
 
-                    <field name="seminar_id" />
+                    <field name="seminar_id" invisible="1"/>
+                    <field name="seminar_ids" widget="many2many_tags" invisible="1"/>
                     <field name="lead_user_ids" invisible="1"/>
                     <label for="user_id">Assign To</label>
                     <div align="center">
