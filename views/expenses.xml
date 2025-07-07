@@ -10,7 +10,7 @@
                     <field name="state" widget="statusbar"/>
                     <button name="action_submit" type="object" invisible="state != 'draft'" string="Submit" class="oe_highlight"/>
                     <button name="action_head_approval" type="object" invisible="state != 'head_approval'" string="Approve"
-                            class="oe_highlight" groups="seminar_17.seminar_marketing_executive_head,seminar_17.seminar_admin"/>
+                            class="oe_highlight" groups="seminar_17.seminar_marketing_executive_head"/>
                     <button name="action_hr_approval" class="oe_highlight" type="object" invisible="state != 'hr_approval'"
                             string="Approve" groups="seminar_17.seminar_admin"/>
                     <button name="action_rejected" type="object" invisible="state != 'hr_approval'" string="Reject"
