@@ -129,8 +129,8 @@
         <field name="inherit_id" ref="logic_payments_17.payment_request_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='source_type']" position="after">
-                <field name="seminar_source" invisible="source_type != 'seminar'"
-                    string="Seminar Source"/>
+                <field name="seminar_source"
+                    string="Seminar Source" invisible="1"/>
                 <field name="seminar_executive" invisible="source_type != 'seminar'"/>
                 <field name="seminar_incentive_source" invisible="description != 'Seminar Incentive'"/>
             </xpath>
