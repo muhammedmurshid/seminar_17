@@ -40,9 +40,9 @@
                     </group>
                     <notebook>
                         <page string="Expenses List" name="goals">
-                            <field name="exp_ids">
+                            <field name="exp_ids" readonly="state != 'draft'">
                                 <tree string="Students List" editable="bottom">
-                                    <field name="currency_id" invisible="1"/>
+                                    <field name="currency_id" optional="hide"/>
                                     <field name="date"/>
                                     <field name="particulars"/>
                                     <field name="type"/>
@@ -50,7 +50,6 @@
                                     <field name="institute_number"/>
                                     <field name="km_traveled"/>
                                     <field name="km_amount" widget="monetary"/>
-
                                     <!--                                    <field name="amount" widget="monetary"/>-->
                                 </tree>
                             </field>
