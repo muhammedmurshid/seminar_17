@@ -31,6 +31,7 @@ class SeminarExpenses(models.Model):
     bus_check = fields.Boolean(string='Bus')
     train_check = fields.Boolean(string='Train')
 
+
     @api.depends('exp_ids.km_traveled')
     def _compute_km_travelled_all(self):
         total = 0

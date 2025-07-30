@@ -46,8 +46,8 @@
                                     <field name="date"/>
                                     <field name="particulars"/>
                                     <field name="type"/>
-                                    <field name="institute"/>
-                                    <field name="institute_number"/>
+                                    <field name="institute" required="1"/>
+                                    <field name="institute_number" required="1"/>
                                     <field name="km_traveled"/>
                                     <field name="km_amount" widget="monetary"/>
                                     <!--                                    <field name="amount" widget="monetary"/>-->
